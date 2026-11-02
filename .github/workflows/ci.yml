@@ -90,7 +90,7 @@ jobs:
           key=$(sudo podman exec circuit-authentik sed -n 's/^AUTHENTIK_SECRET_KEY=//p' /etc/authentik/keys.env)
           test -n "$key"
           for s in "$key" correct-horse-battery tracing-paper-kite example-token-not-secret; do
-            ! grep -qF "$s" terraform.tfstate
+            if grep -qF "$s" terraform.tfstate; then echo "a secret is in state" >&2; exit 1; fi
           done
       - name: Check only root can enter the data's parent
         run: |
