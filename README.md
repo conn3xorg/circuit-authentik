@@ -43,7 +43,7 @@ module "postgres" {
 }
 
 module "authentik" {
-  source = "github.com/conn3xorg/circuit-authentik?ref=v0.1.0"
+  source = "github.com/conn3xorg/circuit-authentik?ref=v0.1.1"
 
   depends_on = [module.postgres]
 
@@ -124,7 +124,7 @@ On each host, in order:
 
 1. Reads the host's facts, and stops if it has less memory than `min_memory_mb`.
 2. Creates `/etc/authentik`, mode `0700`, owned by root.
-3. Creates `/var/lib/authentik/data` and `/var/lib/authentik/certs`, owned by the image's user, uid 1000.
+3. Creates `/var/lib/authentik/data` and `/var/lib/authentik/certs`, owned by the image's user, uid 1000, inside a parent only root can enter, in case that uid is a person's account on the host.
 4. If `/etc/authentik/keys.env` doesn't exist, generates `AUTHENTIK_SECRET_KEY` from `/dev/urandom`, into that file, mode `0600`. Once it exists the circuit never touches it again.
 5. Through [circuit-podman](https://github.com/conn3xorg/circuit-podman) v0.1.0, installs Podman and runs two Quadlet units on the host network, `authentik-server` and `authentik-worker`, with the update check and error reporting off. `postgres_password`, the bootstrap password and token, and `environment` go to `/etc/containers/env/authentik-*.env`, mode `0600`, written from ephemeral values so they never reach the plan or state.
 6. Waits up to fifteen minutes for the server to open its port.

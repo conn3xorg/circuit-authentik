@@ -92,6 +92,9 @@ jobs:
           for s in "$key" correct-horse-battery tracing-paper-kite example-token-not-secret; do
             ! grep -qF "$s" terraform.tfstate
           done
+      - name: Check only root can enter the data's parent
+        run: |
+          [ "$(sudo podman exec circuit-authentik stat -c '%u %a' /var/lib/authentik)" = "0 700" ]
       - name: Clean up
         if: always()
         working-directory: examples/local
