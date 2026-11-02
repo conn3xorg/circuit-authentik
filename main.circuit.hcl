@@ -79,12 +79,13 @@ circuit "keys" {
     }
   }
 
-  # The image's authentik user is uid 1000. A command, since the directory
+  # The image's authentik user is uid 1000, which on the host can be a person's
+  # account, so the parent stays root's alone. A command, since the directory
   # step takes user names and the host has no such user.
   step "state" {
     command {
-      command = "install -d -m 0755 ${local.state_dir} && install -d -o 1000 -g 1000 -m 0750 ${local.state_dir}/data ${local.state_dir}/certs"
-      creates = "${local.state_dir}/certs"
+      command = "install -d -m 0700 ${local.state_dir} && install -d -o 1000 -g 1000 -m 0750 ${local.state_dir}/data ${local.state_dir}/certs"
+      unless  = "[ \"$(stat -c '%u %a' ${local.state_dir})\" = '0 700' ] && [ -d ${local.state_dir}/certs ]"
     }
   }
 
