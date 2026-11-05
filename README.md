@@ -45,7 +45,7 @@ module "postgres" {
 }
 
 module "authentik" {
-  source = "github.com/conn3xorg/circuit-authentik?ref=v0.1.1"
+  source = "github.com/conn3xorg/circuit-authentik?ref=v0.1.2"
 
   depends_on = [module.postgres]
 
