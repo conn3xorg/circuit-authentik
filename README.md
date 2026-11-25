@@ -163,8 +163,8 @@ A change to any input restarts the containers it touches.
 | `port` | number | `9000` | HTTP port. Not 9001, 9300 or 9301, which the circuit's other listeners use. |
 | `https_port` | number | `9443` | HTTPS port. The same three are off limits. |
 | `min_memory_mb` | number | `1600` | Memory, in MiB, a host needs before the circuit configures it. |
-| `authentik_version` | string | `"2026.8.5"` | Tag of `ghcr.io/goauthentik/server`. Change `image_digest` with it. |
-| `image_digest` | string | `"sha256:602227a8..."` | Digest of the image for `authentik_version`, the multi-architecture index. Find it with `skopeo inspect docker://ghcr.io/goauthentik/server:TAG`. |
+| `authentik_version` | string | `"2026.8.7"` | Tag of `ghcr.io/goauthentik/server`. Change `image_digest` with it. |
+| `image_digest` | string | `"sha256:1675a017..."` | Digest of the image for `authentik_version`, the multi-architecture index. Find it with `skopeo inspect docker://ghcr.io/goauthentik/server:TAG`. |
 | `environment` | map(string) | `{}` | More of authentik's [environment variables](https://docs.goauthentik.io/install-config/configuration/) for both containers, such as `AUTHENTIK_EMAIL__HOST`. Ephemeral and sensitive. The variables the circuit sets itself aren't allowed. |
 
 ## Outputs

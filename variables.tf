@@ -35,18 +35,18 @@ variable "ssh_become" {
 
 variable "authentik_version" {
   type        = string
-  default     = "2026.8.5"
-  description = "Tag of the ghcr.io/goauthentik/server image, such as \"2026.8.5\". Change image_digest with it. Upstream doesn't allow skipping a major release when you upgrade."
+  default     = "2026.8.7"
+  description = "Tag of the ghcr.io/goauthentik/server image, such as \"2026.8.7\". Change image_digest with it. Upstream doesn't allow skipping a major release when you upgrade."
 
   validation {
     condition     = can(regex("^[A-Za-z0-9_][A-Za-z0-9_.-]*$", var.authentik_version))
-    error_message = "authentik_version must be an image tag, such as \"2026.8.5\"."
+    error_message = "authentik_version must be an image tag, such as \"2026.8.7\"."
   }
 }
 
 variable "image_digest" {
   type        = string
-  default     = "sha256:602227a86455d6772e3d16b7d852713c4f864f40df5df894abd1285bb53979a5"
+  default     = "sha256:1675a017c46ba7f4f15333aeafeeb64538c581673bcbcd36af872cdf7de4e7f7"
   description = "Digest of ghcr.io/goauthentik/server for authentik_version. Podman pulls by the digest, so a tag that moves upstream can't change what runs."
 
   validation {
